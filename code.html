@@ -1,0 +1,422 @@
+
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MD Summarizer - The Digital Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#081486",
+                        "on-surface": "#dae2fd",
+                        "inverse-surface": "#dae2fd",
+                        "surface-container-highest": "#2d3449",
+                        "tertiary": "#ddb8ff",
+                        "surface-dim": "#0b1326",
+                        "surface-container": "#171f33",
+                        "primary-container": "#7c87f3",
+                        "on-secondary": "#381385",
+                        "surface-tint": "#bdc2ff",
+                        "surface-container-low": "#131b2e",
+                        "on-secondary-fixed": "#21005e",
+                        "primary": "#bdc2ff",
+                        "inverse-primary": "#4953bc",
+                        "tertiary-fixed": "#f0dbff",
+                        "primary-fixed": "#e0e0ff",
+                        "surface-container-lowest": "#060e20",
+                        "on-surface-variant": "#c7c4d7",
+                        "on-tertiary-container": "#400071",
+                        "surface-bright": "#31394d",
+                        "secondary": "#cebdff",
+                        "on-tertiary-fixed": "#2c0051",
+                        "secondary-container": "#4f319c",
+                        "outline-variant": "#464554",
+                        "on-primary-fixed": "#000767",
+                        "secondary-fixed-dim": "#cebdff",
+                        "surface-container-high": "#222a3d",
+                        "background": "#0b1326",
+                        "on-error": "#690005",
+                        "inverse-on-surface": "#283044",
+                        "outline": "#908fa0",
+                        "secondary-fixed": "#e8ddff",
+                        "tertiary-fixed-dim": "#ddb8ff",
+                        "on-secondary-container": "#bea8ff",
+                        "surface": "#0b1326",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#2f3aa3",
+                        "on-primary": "#131e8c",
+                        "tertiary-container": "#b175ec",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed-variant": "#4f319c",
+                        "on-tertiary-fixed-variant": "#62259b",
+                        "on-tertiary": "#490081",
+                        "on-background": "#dae2fd",
+                        "surface-variant": "#2d3449",
+                        "primary-fixed-dim": "#bdc2ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(45, 52, 73, 0.2);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(189, 194, 255, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        html { scroll-behavior: smooth; }
+        body { background-color: #0b1326; color: #dae2fd; }
+    </style>
+</head>
+<body class="font-body selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/40 dark:bg-[#0b1326]/40 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 py-4">
+<div class="text-xl font-bold tracking-tighter text-indigo-600 dark:text-[#bdc2ff] flex items-center gap-2 font-headline">
+<span class="material-symbols-outlined" data-icon="data_exploration">data_exploration</span>
+                MD Summarizer
+            </div>
+<div class="hidden md:flex items-center gap-8 font-['Space_Grotesk'] font-medium text-sm tracking-tight">
+<a class="text-indigo-600 dark:text-[#bdc2ff] border-b-2 border-indigo-500 dark:border-[#bdc2ff] pb-1" href="#hero">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-[#bdc2ff] transition-colors" href="#features">Features</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-[#bdc2ff] transition-colors" href="#how-it-works">Docs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-[#bdc2ff] transition-colors" href="#pricing">Pricing</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-[#bdc2ff] transition-colors" href="#faq">FAQ</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-400 hover:text-primary transition-colors" data-icon="light_mode">light_mode</button>
+<button class="bg-primary hover:opacity-80 transition-all duration-300 text-on-primary px-5 py-2 rounded-xl text-sm font-bold active:scale-95">Get Started</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative pt-32 pb-24 overflow-hidden min-h-screen flex flex-col justify-center" id="hero">
+<!-- Abstract Background Glow -->
+<div class="absolute top-0 right-0 -z-10 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-secondary/10 blur-[100px] rounded-full"></div>
+<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest uppercase">
+<span class="material-symbols-outlined text-xs" data-icon="auto_awesome">auto_awesome</span>
+                    Beta Release 2.0
+                </span>
+<h1 class="text-5xl md:text-7xl font-headline font-bold leading-tight tracking-tighter">
+                    Transform Your Documentation into <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Clear, Actionable Summaries</span>
+</h1>
+<p class="text-xl text-on-surface-variant max-w-lg leading-relaxed">
+                    AI-quality markdown analysis powered by smart algorithms. No API keys, no rate limits, completely free.
+                </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-bold flex items-center gap-2 shadow-[0_10px_20px_rgba(189,194,255,0.2)] hover:shadow-primary/40 transition-all">
+                        Get Started Free
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="border border-outline-variant bg-surface-container/50 backdrop-blur-md px-8 py-4 rounded-xl font-bold hover:bg-surface-container transition-all">
+                        View Demo
+                    </button>
+</div>
+</div>
+<!-- Terminal Mockup -->
+<div class="relative">
+<div class="bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden border border-white/5">
+<div class="bg-surface-container-high px-4 py-3 flex items-center justify-between">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+<div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+</div>
+<div class="text-[10px] uppercase tracking-widest text-on-surface-variant font-mono">bash — 80x24</div>
+<div class="w-12"></div>
+</div>
+<div class="p-6 font-mono text-sm leading-relaxed space-y-4">
+<div class="flex gap-3">
+<span class="text-primary opacity-50">$</span>
+<span class="text-on-surface">npm install -g md-summarizer</span>
+</div>
+<div class="text-slate-500 italic">added 42 packages in 2s</div>
+<div class="flex gap-3">
+<span class="text-primary opacity-50">$</span>
+<span class="text-on-surface">md-summarize README.md --output summary.md</span>
+</div>
+<div class="text-secondary">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+                            Analysis complete. 2,450 words reduced to 320 key insights.
+                        </div>
+</div>
+</div>
+<!-- Copy Button Overlay -->
+<button class="absolute bottom-4 right-4 bg-surface-container-highest/80 backdrop-blur p-2 rounded-lg text-primary-fixed-dim hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-24 bg-surface-container-low" id="features">
+<div class="max-w-7xl mx-auto px-6">
+<div class="mb-16">
+<h2 class="text-3xl md:text-4xl font-headline font-bold mb-4 tracking-tight">Why Developers Love MD Summarizer</h2>
+<div class="h-1.5 w-24 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="glass-card p-8 rounded-xl hover:translate-y-[-8px] transition-transform duration-300 group">
+<div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="bolt">bolt</span>
+</div>
+<h3 class="text-xl font-bold mb-3 font-headline">Lightning Fast</h3>
+<p class="text-on-surface-variant leading-relaxed">Local processing ensures your summaries are generated in milliseconds, not minutes.</p>
+</div>
+<!-- Card 2 -->
+<div class="glass-card p-8 rounded-xl hover:translate-y-[-8px] transition-transform duration-300 group">
+<div class="w-12 h-12 rounded-xl bg-secondary-container/20 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="lock">lock</span>
+</div>
+<h3 class="text-xl font-bold mb-3 font-headline">Privacy First</h3>
+<p class="text-on-surface-variant leading-relaxed">No data ever leaves your machine. We process everything locally using on-device logic.</p>
+</div>
+<!-- Card 3 -->
+<div class="glass-card p-8 rounded-xl hover:translate-y-[-8px] transition-transform duration-300 group">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/20 flex items-center justify-center text-tertiary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="psychology">psychology</span>
+</div>
+<h3 class="text-xl font-bold mb-3 font-headline">Smart Analysis</h3>
+<p class="text-on-surface-variant leading-relaxed">Advanced NLP identifies hierarchy, code blocks, and critical action items automatically.</p>
+</div>
+<!-- Card 4 -->
+<div class="glass-card p-8 rounded-xl hover:translate-y-[-8px] transition-transform duration-300 group">
+<div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="insights">insights</span>
+</div>
+<h3 class="text-xl font-bold mb-3 font-headline">Rich Insights</h3>
+<p class="text-on-surface-variant leading-relaxed">Extract key takeaways, estimated read times, and complexity scores from any file.</p>
+</div>
+<!-- Card 5 -->
+<div class="glass-card p-8 rounded-xl hover:translate-y-[-8px] transition-transform duration-300 group">
+<div class="w-12 h-12 rounded-xl bg-secondary-container/20 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="auto_fix_high">auto_fix_high</span>
+</div>
+<h3 class="text-xl font-bold mb-3 font-headline">Beautiful Output</h3>
+<p class="text-on-surface-variant leading-relaxed">Generates clean, valid markdown that integrates perfectly with your existing documentation.</p>
+</div>
+<!-- Card 6 -->
+<div class="glass-card p-8 rounded-xl hover:translate-y-[-8px] transition-transform duration-300 group">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/20 flex items-center justify-center text-tertiary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="settings_input_component">settings_input_component</span>
+</div>
+<h3 class="text-xl font-bold mb-3 font-headline">Zero Config</h3>
+<p class="text-on-surface-variant leading-relaxed">Works out of the box with sensible defaults. Customize only when you need to.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works Section -->
+<section class="py-24 relative overflow-hidden" id="how-it-works">
+<div class="max-w-7xl mx-auto px-6">
+<h2 class="text-3xl md:text-5xl font-headline font-bold text-center mb-20">Get Started in 3 Simple Steps</h2>
+<div class="grid md:grid-cols-3 gap-12 relative">
+<!-- Connecting Line (Desktop) -->
+<div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-outline-variant to-transparent -z-10"></div>
+<div class="text-center space-y-6">
+<div class="w-20 h-20 rounded-full bg-surface-container mx-auto flex items-center justify-center border-4 border-background text-2xl font-bold text-primary font-headline">01</div>
+<h3 class="text-xl font-bold">Install CLI</h3>
+<div class="bg-surface-container-lowest p-4 rounded-lg font-mono text-xs text-left border border-white/5">
+<span class="text-primary">$</span> npm install -g mds
+                    </div>
+<p class="text-sm text-on-surface-variant">Globally install the toolkit to your machine via npm or brew.</p>
+</div>
+<div class="text-center space-y-6">
+<div class="w-20 h-20 rounded-full bg-surface-container mx-auto flex items-center justify-center border-4 border-background text-2xl font-bold text-secondary font-headline">02</div>
+<h3 class="text-xl font-bold">Run Analysis</h3>
+<div class="bg-surface-container-lowest p-4 rounded-lg font-mono text-xs text-left border border-white/5">
+<span class="text-secondary">$</span> mds analyze docs/
+                    </div>
+<p class="text-sm text-on-surface-variant">Point the tool at any markdown file or entire directory for batch processing.</p>
+</div>
+<div class="text-center space-y-6">
+<div class="w-20 h-20 rounded-full bg-surface-container mx-auto flex items-center justify-center border-4 border-background text-2xl font-bold text-tertiary font-headline">03</div>
+<h3 class="text-xl font-bold">Done</h3>
+<div class="bg-surface-container-lowest p-4 rounded-lg font-mono text-xs text-left border border-white/5">
+<span class="text-tertiary">$</span> cat summary.md
+                    </div>
+<p class="text-sm text-on-surface-variant">Receive an editorial-quality summary ready for team review or publishing.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Code Example Section -->
+<section class="py-24 bg-surface">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div>
+<h2 class="text-3xl md:text-4xl font-headline font-bold mb-4 tracking-tight">See It In Action</h2>
+<p class="text-on-surface-variant max-w-md">Compare a raw technical document with the refined editorial output generated by our curation engine.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container p-1 rounded-lg border border-outline-variant">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-md text-sm font-bold">Markdown</button>
+<button class="px-4 py-2 hover:bg-surface-container-high rounded-md text-sm text-on-surface-variant">Plain Text</button>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-px bg-outline-variant/30 rounded-2xl overflow-hidden border border-outline-variant/30 shadow-2xl">
+<!-- Input Panel -->
+<div class="bg-[#060e20] p-8">
+<div class="flex items-center gap-2 mb-6 text-on-surface-variant text-xs uppercase tracking-widest font-bold">
+<span class="material-symbols-outlined text-sm" data-icon="description">description</span>
+                        input_documentation.md
+                    </div>
+<pre class="font-mono text-sm leading-relaxed text-slate-400 whitespace-pre-wrap"># API Implementation Guide
+This guide covers the entire surface area of our V3 endpoints...
+[... 142 lines of technical specification ...]
+
+## Rate Limiting
+Users are limited to 500 requests per minute...
+## Authentication
+Bearer tokens must be included in every header...
+                    </pre>
+</div>
+<!-- Output Panel -->
+<div class="bg-surface-container-low p-8 relative">
+<div class="flex items-center gap-2 mb-6 text-primary text-xs uppercase tracking-widest font-bold">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+                        curated_summary.md
+                    </div>
+<div class="space-y-4">
+<h4 class="text-xl font-bold font-headline text-white">Summary: API Implementation</h4>
+<div class="space-y-2">
+<div class="flex gap-2 text-sm text-on-surface-variant">
+<span class="text-primary">•</span>
+<p><strong class="text-secondary">Core Focus:</strong> Transitioning from V2 to V3 endpoints with legacy support.</p>
+</div>
+<div class="flex gap-2 text-sm text-on-surface-variant">
+<span class="text-primary">•</span>
+<p><strong class="text-secondary">Key Requirement:</strong> Standard Bearer token authentication required.</p>
+</div>
+<div class="flex gap-2 text-sm text-on-surface-variant">
+<span class="text-primary">•</span>
+<p><strong class="text-secondary">Constraint:</strong> Rate limit set at 500 RPM.</p>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-white/5">
+<div class="flex justify-between text-[10px] text-on-surface-variant uppercase tracking-widest">
+<span>Compression Ratio: 82%</span>
+<span>Read Time: 45s</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<!-- FAQ Section -->
+<section class="py-24" id="faq">
+<div class="max-w-3xl mx-auto px-6">
+<h2 class="text-3xl font-headline font-bold text-center mb-16">Frequently Asked Questions</h2>
+<div class="space-y-4">
+<div class="group border-b border-white/10 pb-4">
+<button class="flex justify-between items-center w-full text-left py-4 hover:text-primary transition-colors">
+<span class="text-lg font-medium">Is my documentation shared with any servers?</span>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</button>
+<p class="hidden group-focus-within:block text-on-surface-variant text-sm leading-relaxed mb-4">
+                        Absolutely not. The CLI tool operates entirely on your local machine using compiled binaries. Your content never leaves your filesystem.
+                    </p>
+</div>
+<div class="group border-b border-white/10 pb-4">
+<button class="flex justify-between items-center w-full text-left py-4 hover:text-primary transition-colors">
+<span class="text-lg font-medium">Which markdown flavors do you support?</span>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</button>
+<p class="hidden group-focus-within:block text-on-surface-variant text-sm leading-relaxed mb-4">
+                        We support GitHub Flavored Markdown (GFM), CommonMark, and Obsidian-style wikilinks out of the box.
+                    </p>
+</div>
+<div class="group border-b border-white/10 pb-4">
+<button class="flex justify-between items-center w-full text-left py-4 hover:text-primary transition-colors">
+<span class="text-lg font-medium">Does it require an OpenAI API key?</span>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</button>
+<p class="hidden group-focus-within:block text-on-surface-variant text-sm leading-relaxed mb-4">
+                        No. The free version uses our proprietary deterministic extraction algorithms which don't require external LLM calls.
+                    </p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24">
+<div class="max-w-7xl mx-auto px-6">
+<div class="relative bg-gradient-to-br from-primary-container/20 to-secondary-container/20 rounded-[2rem] p-12 md:p-24 overflow-hidden text-center glass-card border-none">
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/20 blur-[100px] rounded-full"></div>
+<div class="absolute -bottom-24 -right-24 w-64 h-64 bg-secondary/20 blur-[100px] rounded-full"></div>
+<div class="relative z-10 space-y-8">
+<h2 class="text-4xl md:text-6xl font-headline font-bold tracking-tight">Ready to Curate Your Codebase?</h2>
+<p class="text-on-surface-variant text-xl max-w-2xl mx-auto">Join over 10,000 developers using MD Summarizer to keep their documentation lean and readable.</p>
+<div class="flex flex-col md:flex-row justify-center gap-4 pt-4">
+<button class="bg-primary text-on-primary px-10 py-5 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-lg shadow-primary/20">Download CLI for Free</button>
+<button class="border border-outline bg-surface-container/50 px-10 py-5 rounded-2xl font-bold text-lg hover:bg-surface-container transition-all">Read Documentation</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#131b2e] dark:bg-[#131b2e] w-full border-t border-white/5">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12 max-w-7xl mx-auto px-8 py-16">
+<div class="col-span-2 md:col-span-1 space-y-6">
+<div class="text-lg font-bold text-white dark:text-[#bdc2ff] font-headline">MD Summarizer</div>
+<p class="text-slate-400 dark:text-slate-500 font-['Inter'] text-sm leading-relaxed">
+                    © 2024 MD Summarizer. Built for the Digital Curator.
+                </p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-500 hover:text-primary cursor-pointer" data-icon="rss_feed">rss_feed</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-primary cursor-pointer" data-icon="terminal">terminal</span>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="text-white font-semibold">Product</h4>
+<ul class="space-y-2">
+<li><a class="text-slate-400 hover:text-indigo-400 dark:hover:text-[#bdc2ff] transition-colors text-sm" href="#">Features</a></li>
+<li><a class="text-slate-400 hover:text-indigo-400 dark:hover:text-[#bdc2ff] transition-colors text-sm" href="#">Pricing</a></li>
+<li><a class="text-slate-400 hover:text-indigo-400 dark:hover:text-[#bdc2ff] transition-colors text-sm" href="#">Changelog</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-white font-semibold">Resources</h4>
+<ul class="space-y-2">
+<li><a class="text-slate-400 hover:text-indigo-400 dark:hover:text-[#bdc2ff] transition-colors text-sm" href="#">Docs</a></li>
+<li><a class="text-slate-400 hover:text-indigo-400 dark:hover:text-[#bdc2ff] transition-colors text-sm" href="#">GitHub</a></li>
+<li><a class="text-slate-400 hover:text-indigo-400 dark:hover:text-[#bdc2ff] transition-colors text-sm" href="#">Examples</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-white font-semibold">Legal</h4>
+<ul class="space-y-2">
+<li><a class="text-slate-400 hover:text-indigo-400 dark:hover:text-[#bdc2ff] transition-colors text-sm" href="#">Privacy</a></li>
+<li><a class="text-slate-400 hover:text-indigo-400 dark:hover:text-[#bdc2ff] transition-colors text-sm" href="#">Terms</a></li>
+<li><a class="text-slate-400 hover:text-indigo-400 dark:hover:text-[#bdc2ff] transition-colors text-sm" href="#">Cookie Policy</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</body></html>

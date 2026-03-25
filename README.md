@@ -26,7 +26,7 @@ npm run build
 ### Run locally
 
 ```bash
-node ./bin/cli.js --directory . --output SUMMARY.md
+md-summarizer --directory . --output SUMMARY.md
 ```
 
 ## Development

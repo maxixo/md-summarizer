@@ -1,0 +1,52 @@
+{
+  "name": "md-summarizer",
+  "version": "1.0.0",
+  "description": "Rule-based CLI for summarizing markdown documentation without AI.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourname/md-summarizer"
+  },
+  "keywords": [
+    "markdown",
+    "summary",
+    "summarizer",
+    "cli",
+    "documentation",
+    "static-analysis",
+    "typescript",
+    "node"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "md-summarizer": "bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "if exist dist rmdir /s /q dist",
+    "dev": "tsc -p tsconfig.json --watch",
+    "start": "node ./bin/cli.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "glob": "^8.1.0",
+    "marked": "^9.1.6",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.3"
+  }
+}

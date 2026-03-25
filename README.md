@@ -63,8 +63,8 @@ md-summarizer --directory docs --output docs/SUMMARY.md --include "**/*.md" --ex
 
 ## Table of Contents
 
-- 📘 Getting Started — 🟢 beginner
-- 💻 API Reference — 🟠 intermediate
+- 📘 Getting Started —  beginner
+- 💻 API Reference —  intermediate
 
 ## File Summaries
 
@@ -73,7 +73,7 @@ md-summarizer --directory docs --output docs/SUMMARY.md --include "**/*.md" --ex
 - File: getting-started.md
 - Path: docs/getting-started.md
 - Read time: 2 min
-- Complexity: 🟢 beginner
+- Complexity:  beginner
 - Audience: beginners, developers
 
 This guide introduces the project setup, highlights the required commands, and explains the first workflow a new user should follow.

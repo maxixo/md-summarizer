@@ -6,12 +6,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/md-summarizer.git"
+    "url": "https://github.com/maxixo/md-summarizer.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/md-summarizer/issues"
+    "url": "https://github.com/maxixo/md-summarizer/issues"
   },
-  "homepage": "https://github.com/yourusername/md-summarizer#readme",
+  "homepage": "https://github.com/maxixo/md-summarizer#readme",
   "keywords": [
     "markdown",
     "documentation",

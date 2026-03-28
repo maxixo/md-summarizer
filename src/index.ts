@@ -1,11 +1,10 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import process from 'process';
-import { promisify } from 'util';
 
 import chalk from 'chalk';
 import { Command } from 'commander';
-import glob from 'glob';
+import { glob } from 'glob';
 import ora from 'ora';
 
 import { ContentAnalyzer } from './analyzers/content-analyzer';
@@ -16,8 +15,6 @@ import { FileSystemError, SecurityError } from './types';
 import { Logger } from './utils/logger';
 import { RateLimiter } from './utils/rate-limiter';
 import { InputValidator } from './utils/validator';
-
-const globAsync = promisify(glob);
 
 interface CliOptions {
   readonly directory: string;
@@ -104,7 +101,7 @@ async function discoverMarkdownFiles(
   excludePatterns: readonly string[],
   outputPath: string
 ): Promise<readonly string[]> {
-  const matches = await globAsync(includePattern, {
+  const matches = await glob(includePattern, {
     cwd: directory,
     nodir: true,
     follow: false,

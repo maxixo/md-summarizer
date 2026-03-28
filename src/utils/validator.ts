@@ -10,7 +10,10 @@ export class InputValidator {
     const currentWorkingDirectory = path.resolve(process.cwd());
     const relativePath = path.relative(currentWorkingDirectory, resolvedPath);
 
-    if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+    if (
+      relativePath !== '' &&
+      (relativePath.startsWith('..') || path.isAbsolute(relativePath))
+    ) {
       throw new SecurityError(`Path traversal detected: ${inputPath}`);
     }
 
@@ -72,4 +75,8 @@ export class InputValidator {
       );
     }
   }
+}
+
+function ensureTrailingSeparator(value: string): string {
+  return value.endsWith(path.sep) ? value : `${value}${path.sep}`;
 }

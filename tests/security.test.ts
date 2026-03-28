@@ -6,22 +6,19 @@ import { InputValidator } from '../src/utils/validator';
 
 describe('Security Tests', () => {
   describe('Path Traversal Prevention', () => {
-    it('should block path traversal attempts', () => {
+    it('should block path traversal attempts', async () => {
       const originalCwd = process.cwd();
-      const safeRoot = fs.mkdtemp(path.join(os.tmpdir(), 'md-summarizer-safe-root-'));
+      const workspaceRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'md-summarizer-safe-root-'));
 
-      return safeRoot
-        .then(async (workspaceRoot) => {
-          process.chdir(workspaceRoot);
-
-          expect(() => InputValidator.sanitizePath('../../../etc/passwd')).toThrow('Path traversal detected');
-          expect(() => InputValidator.sanitizePath('..\\..\\..\\Windows\\system32')).toThrow(
-            'Path traversal detected'
-          );
-        })
-        .finally(() => {
-          process.chdir(originalCwd);
-        });
+      try {
+        process.chdir(workspaceRoot);
+        expect(() => InputValidator.sanitizePath('../../../etc/passwd')).toThrow('Path traversal detected');
+        expect(() => InputValidator.sanitizePath('..\\..\\..\\Windows\\system32')).toThrow(
+          'Path traversal detected'
+        );
+      } finally {
+        process.chdir(originalCwd);
+      }
     });
 
     it('should allow safe relative paths', async () => {

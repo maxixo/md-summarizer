@@ -53,7 +53,7 @@
     "check:deps": "npx npm-check-updates",
     "verify:release": "npm run lint && npm test",
     "prepublishOnly": "npm run verify:release",
-    "version": "npm run build && git add -A dist",
+    "version": "npm run build && git add -f -A dist",
     "postversion": "git push && git push --tags"
   },
   "dependencies": {

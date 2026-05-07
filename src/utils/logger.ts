@@ -3,9 +3,9 @@ import path from 'path';
 import process from 'process';
 
 export class Logger {
-  static logFile: string = path.join(process.cwd(), '.md-summarizer.log');
+  static logFile: string = path.join(process.cwd(), '.md-sm.log');
 
-  static log(level: 'info' | 'warn' | 'error', message: string, data?: any): void {
+  static log(level: 'info' | 'warn' | 'error', message: string, data?: unknown): void {
     const timestamp = new Date().toISOString();
     const serializedData = data === undefined ? '' : ` ${serializeLogData(data)}`;
     const entry = `[${timestamp}] [${level.toUpperCase()}] ${message}${serializedData}`;

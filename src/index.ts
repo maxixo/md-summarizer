@@ -16,7 +16,7 @@ import { Logger } from './utils/logger';
 import { RateLimiter } from './utils/rate-limiter';
 import { InputValidator } from './utils/validator';
 
-interface CliOptions {
+export interface CliOptions {
   readonly directory: string;
   readonly output: string;
   readonly include: string;
@@ -24,11 +24,11 @@ interface CliOptions {
   readonly grouped: boolean;
 }
 
-async function main(): Promise<void> {
+export async function main(argv: readonly string[] = process.argv): Promise<void> {
   const program = new Command();
 
   program
-    .name('md-summarizer')
+    .name('md-sm')
     .description('Summarize markdown files using deterministic rule-based analysis.')
     .option('-d, --directory <path>', 'Directory to scan for markdown files', '.')
     .option('-o, --output <filename>', 'Output markdown summary filename', 'SUMMARY.md')
@@ -39,10 +39,10 @@ async function main(): Promise<void> {
       await runSummarizer(rawOptions);
     });
 
-  await program.parseAsync(process.argv);
+  await program.parseAsync(argv);
 }
 
-async function runSummarizer(options: CliOptions): Promise<void> {
+export async function runSummarizer(options: CliOptions): Promise<boolean> {
   const analyzer = new ContentAnalyzer();
   const generator = new SummaryGenerator();
   const rateLimiter = new RateLimiter(SecurityConfig.MAX_OPS_PER_SECOND);
@@ -65,7 +65,7 @@ async function runSummarizer(options: CliOptions): Promise<void> {
 
     if (markdownFiles.length === 0) {
       spinner.warn(chalk.yellow(`No markdown files matched in ${normalizePath(safeDirectory)}.`));
-      return;
+      return true;
     }
 
     spinner.text = 'Analyzing markdown content';
@@ -87,11 +87,13 @@ async function runSummarizer(options: CliOptions): Promise<void> {
     spinner.succeed(chalk.green(`Summary written to ${normalizePath(outputPath)}`));
     process.stdout.write(`${chalk.cyan('Files analyzed:')} ${analyses.length}\n`);
     process.stdout.write(`${chalk.cyan('Output:')} ${normalizePath(outputPath)}\n`);
+    return true;
   } catch (error: unknown) {
     const normalizedError = toError(error);
-    Logger.error('md-summarizer execution failed.', normalizedError);
+    Logger.error('md-sm execution failed.', normalizedError);
     spinner.fail(formatError(normalizedError));
     process.exitCode = 1;
+    return false;
   }
 }
 
@@ -246,4 +248,6 @@ function toError(error: unknown): Error {
   return new Error(typeof error === 'string' ? error : 'An unknown error occurred during summarization.');
 }
 
-void main();
+if (require.main === module) {
+  void main();
+}

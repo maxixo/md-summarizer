@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-require('../dist/index.js');
+const { main } = require('../dist/index.js');
+
+void main();

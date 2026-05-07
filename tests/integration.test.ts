@@ -1,16 +1,39 @@
-import { execFileSync, execSync } from 'child_process';
 import { promises as fs } from 'fs';
 import os from 'os';
 import path from 'path';
 
-const projectRoot = path.resolve(__dirname, '..');
-const cliEntryPoint = path.join(projectRoot, 'bin', 'cli.js');
+import { runSummarizer } from '../src/index';
+
+const defaultOptions = {
+  include: '**/*.md',
+  exclude: ['node_modules/**', 'dist/**', 'SUMMARY.md'],
+  grouped: false
+} as const;
+
+async function runInDirectory(
+  cwd: string,
+  options: {
+    readonly directory: string;
+    readonly output: string;
+    readonly grouped?: boolean;
+  }
+): Promise<boolean> {
+  const originalWorkingDirectory = process.cwd();
+  process.chdir(cwd);
+
+  try {
+    return await runSummarizer({
+      ...defaultOptions,
+      ...options,
+      grouped: options.grouped ?? false
+    });
+  } finally {
+    process.chdir(originalWorkingDirectory);
+    process.exitCode = 0;
+  }
+}
 
 describe('Integration Tests', () => {
-  beforeAll(() => {
-    execSync('npm run build', { cwd: projectRoot, stdio: 'pipe' });
-  });
-
   it('tests full CLI workflow with sample files', async () => {
     const tempDirectory = await fs.mkdtemp(path.join(os.tmpdir(), 'md-summarizer-integration-'));
     await fs.mkdir(path.join(tempDirectory, 'docs'), { recursive: true });
@@ -25,11 +48,9 @@ describe('Integration Tests', () => {
       'utf8'
     );
 
-    execFileSync(process.execPath, [cliEntryPoint, '--directory', './docs', '--output', 'SUMMARY.md'], {
-      cwd: tempDirectory,
-      stdio: 'pipe'
-    });
+    const isSuccessful = await runInDirectory(tempDirectory, { directory: './docs', output: 'SUMMARY.md' });
 
+    expect(isSuccessful).toBe(true);
     const summary = await fs.readFile(path.join(tempDirectory, 'SUMMARY.md'), 'utf8');
 
     expect(summary).toContain('# Markdown Summary Report');
@@ -40,12 +61,9 @@ describe('Integration Tests', () => {
   it('tests error handling for invalid inputs', async () => {
     const tempDirectory = await fs.mkdtemp(path.join(os.tmpdir(), 'md-summarizer-invalid-input-'));
 
-    expect(() =>
-      execFileSync(process.execPath, [cliEntryPoint, '--directory', '../outside', '--output', 'SUMMARY.md'], {
-        cwd: tempDirectory,
-        stdio: 'pipe'
-      })
-    ).toThrow();
+    const isSuccessful = await runInDirectory(tempDirectory, { directory: '../outside', output: 'SUMMARY.md' });
+
+    expect(isSuccessful).toBe(false);
   });
 
   it('tests output generation', async () => {
@@ -56,11 +74,9 @@ describe('Integration Tests', () => {
       'utf8'
     );
 
-    execFileSync(process.execPath, [cliEntryPoint, '--directory', '.', '--output', 'SUMMARY.md', '--grouped'], {
-      cwd: tempDirectory,
-      stdio: 'pipe'
-    });
+    const isSuccessful = await runInDirectory(tempDirectory, { directory: '.', output: 'SUMMARY.md', grouped: true });
 
+    expect(isSuccessful).toBe(true);
     const summary = await fs.readFile(path.join(tempDirectory, 'SUMMARY.md'), 'utf8');
 
     expect(summary).toContain('## Aggregate Statistics');

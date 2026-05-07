@@ -22,12 +22,13 @@ export class InputValidator {
 
   static sanitizePattern(pattern: string): string {
     const trimmedPattern = pattern.trim();
+    const dangerousCharacters = [';', '&', '|', '`', '$', '(', ')', '{', '}', '[', ']', '<', '>'];
 
     if (trimmedPattern.length === 0) {
       throw new ValidationError('Glob pattern cannot be empty.');
     }
 
-    if (/[;&|`$(){}\[\]<>]/.test(trimmedPattern)) {
+    if (dangerousCharacters.some((character) => trimmedPattern.includes(character))) {
       throw new ValidationError(`Pattern contains dangerous characters: ${pattern}`);
     }
 
@@ -75,8 +76,4 @@ export class InputValidator {
       );
     }
   }
-}
-
-function ensureTrailingSeparator(value: string): string {
-  return value.endsWith(path.sep) ? value : `${value}${path.sep}`;
 }

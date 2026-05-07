@@ -1,0 +1,31 @@
+import { type AnalysisResult, type AnalyzerInput } from '../types';
+export declare class ContentAnalyzer {
+    analyze(input: AnalyzerInput): AnalysisResult;
+    private normalizePath;
+    private toPlainText;
+    private countWords;
+    private extractSentences;
+    private inferTitleFromContent;
+    private extractHeadings;
+    private headingSignificance;
+    private rankSentences;
+    private sentenceSignificance;
+    private matchCount;
+    private buildSummary;
+    private extractKeyPoints;
+    private extractListItems;
+    private estimateTextSignificance;
+    private extractTechnicalDetails;
+    private collectMatchedTerms;
+    private preserveReadableCasing;
+    private extractApis;
+    private extractCommands;
+    private extractCodeExamples;
+    private extractLinks;
+    private categorizeLink;
+    private countTechnicalTerms;
+    private inferComplexity;
+    private inferAudience;
+    private selectIcon;
+    private escapeRegExp;
+}

@@ -9,6 +9,10 @@
 
 ## Development Setup
 
+Requirements:
+
+- Node.js 18 or newer
+
 ```bash
 npm install
 npm run build
@@ -25,6 +29,14 @@ npm start -- --directory . --output SUMMARY.md
 ```bash
 npm test
 npm run test:coverage
+npm run verify:release
+```
+
+## Publishing
+
+```bash
+npm version patch
+npm publish
 ```
 
 ## Code Style Guidelines

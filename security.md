@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security issue in [`md-summarizer`](README.md), report it privately by emailing `your.email@example.com`.
+If you discover a security issue in [`md-summarizer`](README.md), report it privately by emailing `oshodiusman@yahoo.com`.
 
 Include the following in your report:
 

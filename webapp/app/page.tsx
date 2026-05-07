@@ -72,7 +72,7 @@ const steps = [
   {
     number: '02',
     title: 'Run Analysis',
-    command: 'md-summarizer --directory docs --output SUMMARY.md',
+    command: 'md-sm --directory docs --output SUMMARY.md',
     description: 'Point the tool at a markdown file or an entire docs directory for batch processing.'
   },
   {
@@ -387,7 +387,7 @@ export default function HomePage() {
                     <div className="mt-2 pl-6 italic text-[var(--muted)]">added 42 packages in 2s</div>
                     <div className="mt-5 flex gap-3">
                       <span className="text-[var(--primary-strong)]">$</span>
-                      <span>md-summarizer --directory . --output summary.md</span>
+                      <span>md-sm --directory . --output summary.md</span>
                     </div>
                   </div>
 

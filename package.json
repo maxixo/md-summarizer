@@ -1,8 +1,8 @@
 {
-  "name": "@yourname/md-summarizer",
+  "name": "md-summarizer",
   "version": "1.0.0",
-  "description": "Smart markdown documentation summarizer with AI-quality analysis",
-  "author": "Your Name <your.email@example.com>",
+  "description": "Deterministic CLI for summarizing Markdown documentation locally",
+  "author": "Usman Oshodi <oshodiusman@yahoo.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "md-summarizer": "./bin/cli.js"
+    "md-sm": "./bin/cli.js"
   },
   "files": [
     "dist/",
@@ -34,16 +34,16 @@
     "LICENSE"
   ],
   "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "prebuild": "npm run clean",
-    "clean": "if exist dist rmdir /s /q dist",
+    "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
     "dev": "ts-node src/index.ts",
     "start": "node ./bin/cli.js",
-    "test": "jest",
+    "pretest": "npm run build",
+    "test": "jest --runInBand",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\"",
@@ -51,7 +51,8 @@
     "audit": "npm audit --audit-level=moderate",
     "audit:fix": "npm audit fix",
     "check:deps": "npx npm-check-updates",
-    "prepublishOnly": "npm run audit && npm run lint && npm test && npm run build",
+    "verify:release": "npm run lint && npm test",
+    "prepublishOnly": "npm run verify:release",
     "version": "npm run build && git add -A dist",
     "postversion": "git push && git push --tags"
   },
